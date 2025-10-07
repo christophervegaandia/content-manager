@@ -5,6 +5,7 @@ import { MainContent } from "./components/main-content/main-content";
 import { Folder } from "./interfaces/folder.interface";
 import { MainService } from "./services/api/main";
 import { Subscription } from "rxjs";
+import { mokData } from "./data/mok.data";
 
 @Component({
 	selector: "app-root",
@@ -22,17 +23,20 @@ export class App implements OnInit, OnDestroy {
 	active?: Folder;
 
 	ngOnInit(): void {
-		this.sub = this.service.getFolders().subscribe({
-			next: data => {
-				if (data.isSuccess && data.statusCode === 200) {
-					this.categories = data.result;
-					this.isLoading = false;
-				}
-			},
-			error: () => {
-				this.isLoading = false;
-			},
-		});
+		this.categories = mokData.result;
+		this.isLoading = false;
+
+		// this.sub = this.service.getFolders().subscribe({
+		// 	next: data => {
+		// 		if (data.isSuccess && data.statusCode === 200) {
+		// 			this.categories = data.result;
+		// 			this.isLoading = false;
+		// 		}
+		// 	},
+		// 	error: () => {
+		// 		this.isLoading = false;
+		// 	},
+		// });
 	}
 
 	ngOnDestroy(): void {
